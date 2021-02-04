@@ -105,14 +105,14 @@ class LinkedList {
   }
 }
 
-const list = new LinkedList();
+// const list = new LinkedList();
 
-list.insertLast("green");
-list.insertLast("blue");
-list.insertLast("green");
-list.insertLast("red");
-list.insertLast("orange");
-list.insertLast("purple");
+// list.insertLast("green");
+// list.insertLast("blue");
+// list.insertLast("green");
+// list.insertLast("red");
+// list.insertLast("orange");
+// list.insertLast("purple");
 
 /* 
 
@@ -124,7 +124,7 @@ green -> blue -> green -> red -> orange -> purple
 function midpoint(list) {
   let slow = list.head;
   let fast = list.head;
-  while (fast.next && fast.next.next) {
+  while (fast && fast.next) {
     slow = slow.next;
     fast = fast.next.next;
   }
@@ -132,3 +132,34 @@ function midpoint(list) {
 }
 
 // console.log(midpoint(list));
+
+// const list = new LinkedList();
+// list.insertLast(5);
+// list.insertLast(3);
+// list.insertLast(10);
+
+// console.log(list.head.value);
+
+const list2 = new LinkedList();
+const a = new Node("a");
+const b = new Node("b");
+const c = new Node("c");
+list2.head = a;
+a.next = b;
+b.next = c;
+c.next = b;
+
+function circular(list) {
+  // Declare two pointers a slow, and fast
+  let slow = list.head;
+  let fast = list.head;
+
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+    if (slow.value === fast.value) return true;
+  }
+  return false;
+}
+
+console.log(circular(list2));
