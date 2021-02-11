@@ -21,4 +21,16 @@ class Tree {
     this.root = null;
   }
   // breadth first traversal
+  // traverse at each level of our tree
+  traverseBF(fn) {
+    // FIFO queue
+    const queue = [this.root];
+    while (queue.length) {
+      // remove the first
+      const node = queue.shift();
+      // push children inside the queue
+      queue.push(...node.children);
+      fn(node);
+    }
+  }
 }
