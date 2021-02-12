@@ -27,20 +27,20 @@ By considering the terms in the Fibonacci sequence whose values do not exceed fo
 
 function fibEven(n) {
   const lastTwo = [1, 2];
-  let counter = 3;
-  const sum = [];
+  let nextFib = lastTwo[0] + lastTwo[1];
+  const sum = [2];
 
-  while (counter <= n) {
-    const nextFib = lastTwo[0] + lastTwo[1];
-    lastTwo[0] = last[1];
-    lastTwo[1] = nextFib;
-
+  while (nextFib < n) {
     if (nextFib % 2 === 0) {
       sum.push(nextFib);
     }
-    counter++;
+    lastTwo[0] = lastTwo[1];
+    lastTwo[1] = nextFib;
+    nextFib = lastTwo[0] + lastTwo[1];
   }
-  console.log(sum);
+  return sum.reduce((acc, curr) => {
+    return (acc += curr);
+  }, 0);
 }
 
-console.log(fib(4000000));
+console.log(fibEven(10));
