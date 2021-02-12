@@ -67,8 +67,6 @@ function largetPrime(n) {
   return divisor;
 }
 
-console.log(largetPrime(180));
-
 function isPrime(n) {
   // A prime number is a natural number greater than 1, and has no postive divisor other than 1 and itself
   if (n === 2) return true;
@@ -84,3 +82,32 @@ function isPrime(n) {
   }
   return true;
 }
+
+function largestPalindromeProduct() {
+  let max = 0;
+  for (let i = 99; i > 10; i--) {
+    for (let j = i; j > 10; j--) {
+      let threeDigits = i * j;
+      if (isPalindrome(threeDigits) && threeDigits > max) {
+        max = i * j;
+      }
+    }
+  }
+  return max;
+}
+
+function isPalindrome(int) {
+  const nums = String(int).split("");
+
+  let leftIdx = 0,
+    rightIdx = nums.length - 1;
+
+  while (leftIdx < rightIdx) {
+    if (nums[leftIdx] !== nums[rightIdx]) return false;
+    leftIdx++;
+    rightIdx--;
+  }
+  return true;
+}
+console.log(largestPalindromeProduct());
+// console.log(isPalindrome(999));
