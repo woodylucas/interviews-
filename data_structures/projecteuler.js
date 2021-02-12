@@ -43,4 +43,44 @@ function fibEven(n) {
   }, 0);
 }
 
-console.log(fibEven(10));
+// console.log(fibEven(10));
+
+// console.log(180 / 2);
+
+/*
+ The prime factors of 13195 are 5, 7, 13 and 29.
+
+What is the largest prime factor of the number 600851475143 ?
+ 
+ */
+
+function largetPrime(n) {
+  let root = Math.ceil(Math.sqrt(n));
+  let divisor = 2;
+  while (root > 1) {
+    if (root % divisor === 0 && isPrime(root)) {
+      root /= divisor;
+    } else {
+      divisor++;
+    }
+  }
+  return divisor;
+}
+
+console.log(largetPrime(180));
+
+function isPrime(n) {
+  // A prime number is a natural number greater than 1, and has no postive divisor other than 1 and itself
+  if (n === 2) return true;
+
+  if (n < 2 || !Number.isInteger(n) || !(n % 2)) {
+    return false;
+  }
+  // modulous operator remainder of the division
+  let root = Math.ceil(Math.sqrt(n));
+
+  for (let i = 2; i <= root; i++) {
+    if (n % i === 0) return false;
+  }
+  return true;
+}
