@@ -154,6 +154,84 @@ class MinBinaryHeap {
   }
 }
 
-const heap = new MinBinaryHeap();
-heap.extractMin();
-console.log(heap);
+// const heap = new MinBinaryHeap();
+// heap.extractMin();
+// console.log(heap);
+
+class PriorityQueue {
+  constructor() {
+    this.values = [];
+  }
+
+  enqueue(val, priority) {
+    let node = new Node(val, priority);
+    this.values.push(node);
+    this.bubbleUp();
+  }
+
+  bubbleUp() {
+    let currentIdx = this.values.length - 1;
+    const child = this.values[currentIdx];
+    while (currentIdx > 0) {
+      let parentIdx = Math.floor((currentIdx - 1) / 2);
+      const parent = this.values[parentIdx];
+      if (child.priority >= parent.priority) break;
+      // Swap
+      this.values[currentIdx] = parent;
+      this.values[parentIdx] = child;
+      currentIdx = parentIdx;
+    }
+  }
+
+  dequeue() {
+    const min = this.values[0];
+    const end = this.values.pop();
+    if (this.values.length > 0) {
+      this.values[0] = end;
+      this.sinkDown();
+    }
+    return min;
+  }
+
+  sinkDown() {
+    let idx = 0;
+    const currentElement = this.values[0];
+    const { length } = this.values;
+
+    while (true) {
+      let leftChildIdx = 2 * idx + 1;
+      let rightChildIdx = 2 * idx + 2;
+      let leftChild, rightChild;
+      let toSwapIdx = null;
+
+      if (leftChildIdx < length) {
+        leftChild = this.values[leftChildIdx];
+        if (leftChild.priority < currentElement.priority) {
+          toSwapIdx = leftChildIdx;
+        }
+      }
+
+      if (rightChildIdx < length) {
+        rightChild = this.values[rightChildIdx];
+        if (
+          (toSwapIdx === null &&
+            rightChild.priority < currentElement.priority) ||
+          (toSwapIdx !== null && rightChild.priority < leftChild.priority)
+        ) {
+          toSwapIdx = rightChildIdx;
+        }
+      }
+      if (toSwapIdx === null) break; // break while loop condition
+      this.values[idx] = this.values[toSwapIdx];
+      this.values[toSwapIdx] = currentElement;
+      idx = toSwapIdx;
+    }
+  }
+}
+
+class Node {
+  constructor(value, priority) {
+    this.value = value;
+    this.priority = priority;
+  }
+}
